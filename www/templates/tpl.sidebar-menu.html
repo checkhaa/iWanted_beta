@@ -1,0 +1,35 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-back-button></ion-nav-back-button>
+            
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    
+    <ion-side-menu side="left">
+        <div class="list">
+            <div class="item item-divider">NAVIGATION</div>
+            
+            <a menu-close href="#/app/advert-search" class="item item-icon-left">
+                <i class="icon ion-search"></i>
+                Anzeige Suchen
+            </a>
+            <a menu-close href="#/app/advert-add" class="item item-icon-left">
+                <i class="icon ion-share"></i>
+                Anzeige Hinzufügen
+            </a>
+            <a menu-close href="#/app/advert-own" class="item item-icon-left">
+                <i class="icon ion-archive"></i>
+                Meine Anzeigen
+            </a>
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-chatbubbles"></i>
+                Chat
+            </a>
+        </div>
+    </ion-side-menu>
+</ion-side-menus>
