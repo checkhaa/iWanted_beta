@@ -60,6 +60,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             }
         }
     })
+    
+    .state('app.chat', {
+        url: "/chat",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/tpl.chat.html"
+            }
+        }
+    })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/advert-search');
 });
