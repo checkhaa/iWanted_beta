@@ -1,10 +1,42 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $location, $state, $ionicScrollDelegate ) {
-    $scope.show_adverts = function() {
-        alert(this.title);
-        $state.go("app.advert-show"); 
+.controller('AppCtrl', function($scope, $http, $location, $state, $ionicScrollDelegate ) {
+
+    // Kategorie für das Suchen holen
+    $http.get('http://iwanted.setcode.de/page.advert-search.php').success(function(result){
+        $scope.advertcategory = {data: result};
+    });
+    
+    // Kategorie für das Hinzufügen holen
+    $http.get('http://iwanted.setcode.de/page.advert-search.php?no-all').success(function(result){
+        $scope.advertaddcategory = {data: result};
+    });   
+    
+    // Suche Starten und Ergebnisse anzeigen
+    $scope.show_adverts = function(advertsearch) {    
+        dataString = 'advert_category_id='+advertsearch.advertcat;
+        $http.post('http://iwanted.setcode.de/page.advert-show.php?'+dataString).success(function(data){
+            if(data != 'no_results'){
+                $state.go("app.advert-show");
+                $scope.advertresult = data;
+            } else {
+                $state.go("app.advert-no-result");   
+            }
+        });
     };
+    
+    
+    // Anzeige hinzufügen
+    $scope.add_adverts = function(advertadd) {
+        dataString = 'advert_category_id='+advertadd.advertcat+'&advert_description='+advertadd.advert_description;
+        $http.post('http://iwanted.setcode.de/page.advert-add.php?'+dataString).success(function(data){
+            if(data == 'success'){
+                $state.go('app.advert-own', {}, {reload: true, inherit: false});  
+            }
+        });
+    }
+    
+    
     
     $scope.showTime = true;
     

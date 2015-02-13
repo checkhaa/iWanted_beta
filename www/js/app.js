@@ -16,6 +16,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+    
     $stateProvider
 
     .state('app', {
@@ -25,6 +26,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         controller: 'AppCtrl'
     })
 
+    .state('app.my-profile', {
+        url: "/my-profile",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/tpl.my-profile.html"
+            }
+        }
+    })    
+    
     .state('app.addvert-search', {
         url: "/advert-search",
         views: {
@@ -61,6 +71,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
     })
     
+    .state('app.advert-no-result', {
+        url: "/advert-no-result",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/tpl.advert-no-result.html"
+            }
+        }
+    })
+    
     .state('app.chat', {
         url: "/chat",
         views: {
@@ -69,6 +88,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             }
         }
     })
+    
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/advert-search');
+    $urlRouterProvider.otherwise('/app/my-profile');
 });

@@ -1,4 +1,31 @@
 <ion-view view-title="ANZEIGE HINZUFÜGEN">
-  <ion-content>
-  </ion-content>
+    <ion-content>
+        <form ng-submit="add_adverts(advertadd)">
+            <div class="card">
+                <div class="item item-divider">
+                    Kategorie
+                </div>
+            
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        Kategorie auswählen
+                    </div>
+                    
+                    <select ng-model="advertadd.advertcat" ng-options="obj.advert_category_id as obj.advert_category_name for obj in advertaddcategory.data" required>
+                        <option value="">BITTE AUSWÄHLEN</option>
+                    </select>
+                </div>
+ 
+            </div>
+            <div class="card">
+                <div class="item item-divider">
+                    Beschreibung
+                </div>
+                <div class="item item-text-wrap">
+                    <textarea placeholder="Beschreibung" rows="8" cols="10" ng-model="advertadd.advert_description"></textarea>
+                </div>
+            </div>
+            <button class="button button-assertive" style="margin-left: 10px">FERTIG</button>
+        </form>
+    </ion-content>
 </ion-view>

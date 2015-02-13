@@ -1,18 +1,18 @@
 <ion-view view-title="ANZEIGEN">
     <ion-content>
-        <div class="list card">
+        <div class="list card" ng-repeat="advertresult in advertresult">
             <div class="item item-avatar">
                 <img src="img/ionic.png">
-                <h2>MITFAHRGELEGENHEIT</h2>
-                <p>Fr. 30.01.2015</p>
+                <h2>{{advertresult.advert_category_name}}</h2>
+                <p>{{advertresult.advert_datetime}} - {{advertresult.advert_user_name}}</p>
             </div>
             
             <div class="item item-body">
                 <img class="full-image" src="img/delorean.jpg">
-                <p>Beschreibung Beschreibung Beschreibung Beschreibung</p>
+                <p>{{advertresult.advert_description}}</p>
                 <p>
                     <a href="#" class="subdued">1 Gefällt mir</a>
-                    <a href="#" class="subdued">5 Kommentare</a>
+                    <a href="#" class="subdued">{{advertresult.advert_comment_sum}} Kommentare</a>
                 </p>
             </div>
             
