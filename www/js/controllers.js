@@ -1,20 +1,41 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $http, $location, $state, $ionicScrollDelegate ) {
-
-    // Kategorie für das Suchen holen
-    $http.get('http://iwanted.setcode.de/page.advert-search.php').success(function(result){
-        $scope.advertcategory = {data: result};
+.controller('AppCtrl', function($scope, $http, $state, $ionicModal ) {
+    
+    // Kategorie auswahl mit Modal
+    $http.get('http://iwanted.setcode.de/page.advert-search.php').success(function(data){
+        $scope.advertcategory = data;
     });
+  
+    $ionicModal.fromTemplateUrl('advert_category.html', function(modal) {
+        $scope.modal_advert_category = modal;
+    }, { 
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    });
+
+    $scope.advert_category = {"msg" : 'Kategorie auswählen'};
+    $scope.open_category = function() {          
+        $scope.modal_advert_category.show();
+    };
     
-    // Kategorie für das Hinzufügen holen
-    $http.get('http://iwanted.setcode.de/page.advert-search.php?no-all').success(function(result){
-        $scope.advertaddcategory = {data: result};
-    });   
+    $scope.hide_category = function() {
+        $scope.modal_advert_category.hide();
+    };
     
-    // Suche Starten und Ergebnisse anzeigen
-    $scope.show_adverts = function(advertsearch) {    
-        dataString = 'advert_category_id='+advertsearch.advertcat;
+    $scope.change_category = function(item) { 
+        // Kategorie auswahl
+        $scope.advert_category.msg = item;
+        $scope.modal_advert_category.hide();
+        
+        // Ort auswahl einblenden
+        $('.city_search').fadeIn("normal");
+       
+        
+        
+        /*
+        dataString = 'advert_category_id='+this.advertcategory.advert_category_id;
         $http.post('http://iwanted.setcode.de/page.advert-show.php?'+dataString).success(function(data){
             if(data != 'no_results'){
                 $state.go("app.advert-show");
@@ -23,9 +44,10 @@ angular.module('starter.controllers', [])
                 $state.go("app.advert-no-result");   
             }
         });
+        */
     };
     
-    
+
     // Anzeige hinzufügen
     $scope.add_adverts = function(advertadd) {
         dataString = 'advert_category_id='+advertadd.advertcat+'&advert_description='+advertadd.advert_description;
@@ -36,48 +58,4 @@ angular.module('starter.controllers', [])
         });
     }
     
-    
-    
-    $scope.showTime = true;
-    
-    var alternate, isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
-
-    $scope.sendMessage = function() {
-        alternate = !alternate;
-        
-        var d = new Date();
-        d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
-        
-        $scope.messages.push({
-            userId: alternate ? '12345' : '54321',
-            text: $scope.data.message,
-            time: d
-        });
-        
-        delete $scope.data.message;
-        $ionicScrollDelegate.scrollBottom(true);
-
-    };
-
-    $scope.inputUp = function() {
-        if (isIOS) $scope.data.keyboardHeight = 216;
-        $timeout(function() {
-            $ionicScrollDelegate.scrollBottom(true);
-        }, 300);
-    };
-
-    $scope.inputDown = function() {
-        if (isIOS) $scope.data.keyboardHeight = 0;
-        $ionicScrollDelegate.resize();
-    };
-
-    $scope.closeKeyboard = function() {
-        // cordova.plugins.Keyboard.close();
-    };
-
-    $scope.data = {};
-    $scope.myId = '54321';
-    $scope.messages = [];
 });
-
-

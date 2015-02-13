@@ -3,29 +3,33 @@
         <form ng-submit="show_adverts(advertsearch)">
             <div class="card">
                 <div class="item item-divider">
-                    Kategorie
+                    Kategorie Auswahl
                 </div>
-            
-                <div class="item item-input item-select">
-                    <div class="input-label">
-                        Kategorie auswählen
-                    </div>
-                    
-                    <select ng-model="advertsearch.advertcat" ng-options="obj.advert_category_id as obj.advert_category_name for obj in advertcategory.data" required>
-                        <option value="">BITTE AUSWÄHLEN</option>
-                    </select>
+                <div class="item item-text-wrap" style="text-align: center">
+                    <a class="button button-outline button-dark icon icon-left ion-ios7-albums-outline " ng-click="open_category()">{{advert_category.msg}}</a>
                 </div>
- 
             </div>
-            <div class="card">
+            
+            <div class="card city_search" style="display: none">
                 <div class="item item-divider">
-                    Sonstige Suchkriterien
+                    Ort Auswahl
                 </div>
                 <div class="item item-text-wrap">
-
+                    <div class="list list-inset">
+                        <input type="text" name="city" class="border-input" placeholder="PLZ / Ort Suche">
+                    </div>
+                                        
+                    <div class="list">
+                        <div class="item range range-positive">
+                            <button class="button button-small button-dark">
+                                Radius
+                            </button>
+                            <input type="range" name="city_radius" min="1" max="100" value="33">
+                            <i class="icon ion-ios7-sunny"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button class="button button-assertive" style="margin-left: 10px">SUCHEN</button>
         </form>
     </ion-content>
 </ion-view>
